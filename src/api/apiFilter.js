@@ -1,7 +1,7 @@
 // 요청 Method별 빠른 처리하기 위한
 import instance from "./axiosInstance";
 
-export const get_normal = (url, json, headers) => {
+export const get_normal = async (url, json, headers) => {
 	url = url.replace(/ /gi, "%20");
 	let queryString = "";
 	if (json && Object.entries(json).length > 0) {
@@ -13,13 +13,15 @@ export const get_normal = (url, json, headers) => {
 			queryString += `${key}=${json[key]}`;
 		}
 	}
-	return instance.get(url + queryString, {
-		headers,
-	});
+	return await instance
+		.get(url + queryString, {
+			headers,
+		})
+		.then(({ data }) => data);
 };
 
 // download
-export const get_download = (url, json, headers) => {
+export const get_download = async (url, json, headers) => {
 	url = url.replace(/ /gi, "%20");
 	let queryString = "";
 	if (json && Object.entries(json).length > 0) {
@@ -31,21 +33,23 @@ export const get_download = (url, json, headers) => {
 			queryString += `${key}=${json[key]}`;
 		}
 	}
-	return instance.get(url + queryString, {
+	return await instance.get(url + queryString, {
 		headers,
 		responseType: "blob",
 	});
 };
 
 // post body
-export const post_json = (url, params, headers) => {
-	return instance.post(url, params, {
-		headers,
-	});
+export const post_json = async (url, params, headers) => {
+	return await instance
+		.post(url, params, {
+			headers,
+		})
+		.then(({ data }) => data);
 };
 
 // post formData
-export const post_formData = (url, params, headers) => {
+export const post_formData = async (url, params, headers) => {
 	const formData = new FormData();
 	Object.entries(params).map((v) => {
 		if (v[1] instanceof Array || v[1] instanceof FileList) {
@@ -56,13 +60,15 @@ export const post_formData = (url, params, headers) => {
 			formData.append(v[0], v[1]);
 		}
 	});
-	return instance.post(url, formData, {
-		headers,
-	});
+	return await instance
+		.post(url, formData, {
+			headers,
+		})
+		.then(({ data }) => data);
 };
 
 // post urlFormData
-export const post_urlFormData = (url, params, headers) => {
+export const post_urlFormData = async (url, params, headers) => {
 	const url_form_data = new URLSearchParams();
 	Object.entries(params).map((v) => {
 		if (v[1] instanceof Array) {
@@ -73,21 +79,25 @@ export const post_urlFormData = (url, params, headers) => {
 			url_form_data.append(v[0], v[1]);
 		}
 	});
-	return instance.post(url, url_form_data, {
-		headers,
-	});
+	return await instance
+		.post(url, url_form_data, {
+			headers,
+		})
+		.then(({ data }) => data);
 };
 
 // put urlFormData
-export const put_urlFormData = (url, params, headers) => {
+export const put_urlFormData = async (url, params, headers) => {
 	const url_form_data = new URLSearchParams(params);
-	return instance.put(url, url_form_data, {
-		headers,
-	});
+	return await instance
+		.put(url, url_form_data, {
+			headers,
+		})
+		.then(({ data }) => data);
 };
 
 // delete
-export const delete_normal = (url, json) => {
+export const delete_normal = async (url, json) => {
 	url = url.replace(/ /gi, "%20");
 	let queryString = "";
 	if (json && Object.entries(json).length > 0) {
@@ -99,5 +109,5 @@ export const delete_normal = (url, json) => {
 			queryString += `${key}=${json[key]}`;
 		}
 	}
-	return instance.delete(url + queryString);
+	return await instance.delete(url + queryString).then(({ data }) => data);
 };
