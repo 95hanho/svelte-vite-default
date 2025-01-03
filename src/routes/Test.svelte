@@ -42,9 +42,9 @@
     }
 
     onMount(() => {
-        testService.test().then((data) => {
-            console.log(data);
-        });
+        // testService.test().then((data) => {
+        //     console.log(data);
+        // });
     });
 </script>
 

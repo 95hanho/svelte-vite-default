@@ -48,6 +48,7 @@ const create_login = () => {
 			if (!uInfo.name && aToken && !getUser_ing) {
 				getUser_ing = true;
 				await testService.get_user().then((data) => {
+					console.log(data);
 					userInfo.set({ ...data.user });
 				});
 				getUser_ing = false;
