@@ -6,10 +6,7 @@ import { loginOn } from "../store/authSlice";
 import { modal_alert } from "../store/modalSlice";
 
 const instance = axios.create({
-	// http://localhost:9371
-	// http://ehfqntuqntu.cafe24.com
-	// https://95hanho.pe.kr/api_spring_default/
-	baseURL: "https://95hanho.pe.kr/api_spring_default/",
+	baseURL: process.env.VITE_BASEURL,
 	timeout: 5000,
 });
 instance.defaults.withCredentials = true; // 쿠키 전송 허락락

@@ -13,5 +13,11 @@ export default defineConfig(({ mode }) => {
 		plugins: [svelte()],
 		base:"/api_spring_default",
 		server: {},
+		define: {
+			"process.env": {
+				VITE_ENVTYPE: env.VITE_ENVTYPE,
+				VITE_BASEURL: env.VITE_BASEURL,
+			},
+		},
 	};
 });
