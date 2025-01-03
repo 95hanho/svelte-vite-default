@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
 	import { testService } from "../api";
 	import { loginOn } from "../store/authSlice";
 	import { modal_alert } from "../store/modalSlice";
@@ -22,8 +23,15 @@
                 modal_alert.open(data.msg);
             });
         }
-        
     }
+
+    onMount(() => {
+        testService.test().then((data) => {
+            console.log(data);
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
 </script>
 
 <div id="testLogin">
